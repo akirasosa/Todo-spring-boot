@@ -38,3 +38,5 @@ dependencies {
     testCompile 'org.spockframework:spock-spring:0.7-groovy-2.0'
 }
 
+// heroku
+task stage(dependsOn: ['clean', 'build'])
