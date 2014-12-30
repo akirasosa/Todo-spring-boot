@@ -1,1 +1,1 @@
-web: java -jar build/libs/Todo-spring-boot-1.0.jar --server.port=$PORT
+web: java $JAVA_OPTS -jar app.jar --Dserver.port=$PORT
