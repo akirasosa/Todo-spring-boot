@@ -10,6 +10,12 @@ import todoapp.service.TodoRepository;
 public class TodoApplication {
 
     public static void main(String[] args) {
+        String webPort = System.getenv("PORT");
+        if (webPort == null || webPort.isEmpty()) {
+            webPort = "8080";
+        }
+        System.setProperty("server.port", webPort);
+
         ConfigurableApplicationContext context = SpringApplication.run(TodoApplication.class, args);
         TodoRepository repository = context.getBean(TodoRepository.class);
 
