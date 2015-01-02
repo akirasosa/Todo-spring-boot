@@ -7,6 +7,7 @@ import todoapp.domain.Todo;
 import todoapp.service.TodoService;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.util.Optional;
 import java.util.Set;
 
@@ -32,8 +33,7 @@ public class TodoController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public Todo create(@RequestParam("title") String title) {
-        Todo todo = new Todo(title);
+    public Todo create(@RequestBody @Valid Todo todo) {
         return todoService.save(todo);
     }
 
