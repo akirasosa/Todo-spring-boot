@@ -21,6 +21,12 @@ public class TodoApplication {
 
         repository.save(new Todo("Buy milk"));
         repository.save(new Todo("Play soccer"));
+        repository.save(new Todo("Play soccer"));
+        repository.save(new Todo("Play soccer"));
+        repository.save(new Todo("Play soccer"));
+        repository.save(new Todo("Play soccer"));
+        repository.save(new Todo("Play soccer"));
+        repository.save(new Todo("Play soccer"));
     }
 
 }

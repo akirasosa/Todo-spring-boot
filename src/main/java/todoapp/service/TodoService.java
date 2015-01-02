@@ -7,7 +7,7 @@ import java.util.Collection;
 
 public interface TodoService {
 
-    public Page<Todo> list();
+    public Page<Todo> list(int page, int size);
 
     Todo save(Todo todo);
 
