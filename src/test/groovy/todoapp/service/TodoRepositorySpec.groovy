@@ -24,7 +24,7 @@ class TodoRepositorySpec extends Specification {
         todoRepository.count() == 3
 
         when:
-        todoRepository.deleteAllByIds([todo1.getId(), todo2.getId()] as Set) == null
+        todoRepository.deleteAllByIds([todo1.getId(), todo2.getId()] as Set)
 
         then:
         todoRepository.count() == 1
