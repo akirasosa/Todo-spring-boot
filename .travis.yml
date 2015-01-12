@@ -1,3 +1,12 @@
 language: java
+
 jdk:
-  - oraclejdk8
+- oraclejdk8
+
+deploy:
+  provider: heroku
+  api_key:
+    secure: DciPIZczbnXM2wugdWPiO55XW6zauPinKtXbJW80TIxRs5kEnTnV1sWxQ5BePkVoonEgrNfjTnxPrLMFbDvNFRI9KINMeaDxR3fNxoczb+vrw6Rk/vI3ejNIahZHN13fVJ+jo5vAvDNuGHrxnwOO0Vy1gFWiRDp2mZsCQO6mjuM=
+  app: rocky-anchorage-1766
+  on:
+    branch: master
