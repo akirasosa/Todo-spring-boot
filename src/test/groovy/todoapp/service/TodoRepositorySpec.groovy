@@ -16,9 +16,9 @@ class TodoRepositorySpec extends Specification {
     @Transactional
     def "can delete all todos by ids"() {
         when:
-        Todo todo1 = todoRepository.save(new Todo("test1"))
-        Todo todo2 = todoRepository.save(new Todo("test2"))
-        todoRepository.save(new Todo("test3"))
+        Todo todo1 = todoRepository.save(new Todo(null, "test1"))
+        Todo todo2 = todoRepository.save(new Todo(null, "test2"))
+        todoRepository.save(new Todo(null, "test3"))
 
         then:
         todoRepository.count() == 3

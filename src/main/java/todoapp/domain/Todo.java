@@ -1,5 +1,6 @@
 package todoapp.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -11,6 +12,7 @@ import java.io.Serializable;
 
 @Entity
 @Data
+@AllArgsConstructor
 @EqualsAndHashCode(exclude = { "id" })
 public class Todo implements Serializable {
 
