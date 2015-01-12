@@ -17,27 +17,40 @@ buildscript {
     }
 }
 
-idea {
-    module {
-        inheritOutputDirs = false
-        outputDir = file("$buildDir/classes/main/")
-    }
-}
-
 repositories {
     mavenLocal()
     mavenCentral()
+    jcenter()
+}
+
+configurations {
+    provided
 }
 
 dependencies {
+    provided "org.projectlombok:lombok:1.14.8"
     compile "org.springframework.boot:spring-boot-starter-web:1.2.0.RELEASE"
     compile "org.springframework.boot:spring-boot-starter-data-jpa:1.2.0.RELEASE"
-    compile "org.springframework.boot:spring-boot-starter-thymeleaf:1.2.0.RELEASE"
+    compile "org.springframework.boot:spring-boot-starter-jade4j:0.1.4.4"
     compile "com.h2database:h2"
     compile "org.postgresql:postgresql:9.3-1102-jdbc41"
     testCompile "org.springframework.boot:spring-boot-starter-test:1.2.0.RELEASE"
     testCompile 'org.spockframework:spock-core:0.7-groovy-2.0'
     testCompile 'org.spockframework:spock-spring:0.7-groovy-2.0'
+}
+
+sourceSets {
+    main {
+        compileClasspath += configurations.provided
+    }
+}
+
+idea {
+    module {
+        inheritOutputDirs = false
+        outputDir = file("$buildDir/classes/main/")
+        scopes.PROVIDED.plus += configurations.provided
+    }
 }
 
 task stage(type: Copy, dependsOn: [clean, build]) {

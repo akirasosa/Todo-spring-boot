@@ -1,5 +1,8 @@
 package todoapp.domain;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,6 +10,8 @@ import javax.persistence.Id;
 import java.io.Serializable;
 
 @Entity
+@Data
+@EqualsAndHashCode(exclude = { "id" })
 public class Todo implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -18,22 +23,4 @@ public class Todo implements Serializable {
     @Column(nullable = false)
     private String title;
 
-    protected Todo() {}
-
-    public Todo(String title) {
-        this.title = title;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    @Override
-    public String toString() {
-        return getId() + "," + getTitle();
-    }
 }
