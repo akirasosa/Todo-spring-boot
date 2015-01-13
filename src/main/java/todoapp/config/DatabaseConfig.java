@@ -1,4 +1,4 @@
-package todoapp;
+package todoapp.config;
 
 import net.sf.log4jdbc.Log4jdbcProxyDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 @Configuration
-public class HerokuDatabaseConfig {
+public class DatabaseConfig {
 
     @Autowired
     private DataSourceProperties properties;
@@ -36,7 +36,6 @@ public class HerokuDatabaseConfig {
             username = this.properties.getUsername();
             password = this.properties.getPassword();
         }
-
 
         DataSourceBuilder factory = DataSourceBuilder
                 .create(this.properties.getClassLoader())
