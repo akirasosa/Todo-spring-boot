@@ -36,5 +36,9 @@ spring:
   jade4j:
     caching: true
     prettyPrint: false
+endpoints:
+  enabled: false
+  health:
+    enabled: true
 app:
   asset-host: ts-ng-webpack.5ik.biz
