@@ -10,6 +10,7 @@ import todoapp.domain.Todo
 
 @ContextConfiguration(loader = SpringApplicationContextLoader.class, classes = TodoApplication.class)
 class TodoRepositorySpec extends Specification {
+
     @Autowired
     TodoRepository todoRepository
 
