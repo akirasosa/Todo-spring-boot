@@ -2,19 +2,22 @@ package todoapp.service
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.SpringApplicationContextLoader
+import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.ContextConfiguration
-import org.springframework.transaction.annotation.Transactional
 import spock.lang.Specification
 import todoapp.TodoApplication
 import todoapp.domain.Todo
 
 @ContextConfiguration(loader = SpringApplicationContextLoader.class, classes = TodoApplication.class)
-class TodoRepositorySpec extends Specification {
+@ActiveProfiles("test")
+class TodoServiceTest extends Specification {
 
     @Autowired
     TodoRepository todoRepository
 
-    @Transactional
+    @Autowired
+    TodoService todoService
+
     def "can delete all todos by ids"() {
         when:
         Todo todo1 = todoRepository.save(new Todo(null, "test1"))
@@ -25,7 +28,7 @@ class TodoRepositorySpec extends Specification {
         todoRepository.count() == 3
 
         when:
-        todoRepository.deleteAllByIds([todo1.getId(), todo2.getId()] as Set)
+        todoService.deleteAll([todo1.getId(), todo2.getId()] as Set)
 
         then:
         todoRepository.count() == 1

@@ -1,15 +1,15 @@
 spring:
   profiles:
     active: dev
+---
+spring:
+  profiles: dev
   datasource:
     driverClassName: org.postgresql.Driver
   jpa:
     database: POSTGRESQL
     hibernate:
       ddl-auto: validate
----
-spring:
-  profiles: dev
   jade4j:
     caching: false
     prettyPrint: true
@@ -20,10 +20,34 @@ logging:
     todoapp: DEBUG
 app:
   asset-host: localhost:8080
-
+---
+spring:
+  profiles: test
+  datasource:
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:mem:test;MODE=PostgreSQL;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password:
+  jpa:
+    database: H2
+    hibernate:
+      ddl-auto: create-drop
+flyway:
+  enabled: false
+server:
+  port: 0
+logging:
+  level:
+    todoapp: DEBUG
 ---
 spring:
   profiles: production
+  datasource:
+    driverClassName: org.postgresql.Driver
+  jpa:
+    database: POSTGRESQL
+    hibernate:
+      ddl-auto: validate
 endpoints:
   enabled: false
   health.enabled: true
