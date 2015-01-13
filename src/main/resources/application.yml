@@ -1,18 +1,15 @@
 spring:
   profiles:
     active: dev
+  datasource:
+    driverClassName: org.postgresql.Driver
+  jpa:
+    database: POSTGRESQL
+    hibernate:
+      ddl-auto: validate
 ---
 spring:
   profiles: dev
-  datasource:
-    driverClassName: org.h2.Driver
-    url: jdbc:h2:file:/tmp/customers;MODE=PostgreSQL;DB_CLOSE_ON_EXIT=FALSE
-    username: sa
-    password:
-  jpa:
-    database: H2
-    hibernate:
-      ddl-auto: create-drop
   jade4j:
     caching: false
     prettyPrint: true
@@ -27,18 +24,8 @@ app:
 ---
 spring:
   profiles: production
-  datasource:
-    driverClassName: org.postgresql.Driver
-  jpa:
-    database: POSTGRESQL
-    hibernate:
-      ddl-auto: create-drop
-  jade4j:
-    caching: true
-    prettyPrint: false
 endpoints:
   enabled: false
-  health:
-    enabled: true
+  health.enabled: true
 app:
   asset-host: ts-ng-webpack.5ik.biz
