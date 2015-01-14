@@ -1,14 +1,14 @@
-package todoapp.service
+package myapps.todoapp.service
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.SpringApplicationContextLoader
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.ContextConfiguration
 import spock.lang.Specification
-import todoapp.TodoApplication
-import todoapp.domain.Todo
+import myapps.MyApplication
+import myapps.todoapp.domain.Todo
 
-@ContextConfiguration(loader = SpringApplicationContextLoader.class, classes = TodoApplication.class)
+@ContextConfiguration(loader = SpringApplicationContextLoader.class, classes = MyApplication.class)
 @ActiveProfiles("test")
 class TodoServiceTest extends Specification {
 

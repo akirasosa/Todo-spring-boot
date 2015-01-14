@@ -1,4 +1,4 @@
-package todoapp.config;
+package myapps.core.config;
 
 import net.sf.log4jdbc.Log4jdbcProxyDataSource;
 import org.springframework.beans.factory.annotation.Autowired;

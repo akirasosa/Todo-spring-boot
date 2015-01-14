@@ -1,4 +1,4 @@
-package todoapp.domain;
+package myapps.todoapp.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,6 +9,7 @@ import java.io.Serializable;
 
 @Entity
 @Data
+@Table(name = "_todo")
 @NoArgsConstructor
 @AllArgsConstructor
 public class Todo implements Serializable {

@@ -1,8 +1,8 @@
-package todoapp.service;
+package myapps.todoapp.service;
 
+import myapps.todoapp.domain.Todo;
 import org.springframework.data.domain.Page;
 import org.springframework.transaction.annotation.Transactional;
-import todoapp.domain.Todo;
 
 import java.util.Collection;
 

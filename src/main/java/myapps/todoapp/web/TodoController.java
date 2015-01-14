@@ -1,10 +1,10 @@
-package todoapp.web;
+package myapps.todoapp.web;
 
+import myapps.todoapp.domain.Todo;
+import myapps.todoapp.service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
-import todoapp.domain.Todo;
-import todoapp.service.TodoService;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
