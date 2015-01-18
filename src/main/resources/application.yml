@@ -19,7 +19,7 @@ server:
   port: 9000
 logging:
   level:
-    todoapp: DEBUG
+    myapps: DEBUG
 app:
   asset-host: localhost:8080
 ---
@@ -40,7 +40,7 @@ server:
   port: 0
 logging:
   level:
-    todoapp: DEBUG
+    myapps: DEBUG
 ---
 spring:
   profiles: production
