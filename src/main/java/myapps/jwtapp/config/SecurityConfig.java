@@ -1,6 +1,7 @@
 package myapps.jwtapp.config;
 
 import myapps.jwtapp.StatelessLoginFilter;
+import myapps.jwtapp.service.JWTService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,6 +23,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
 
+    @Autowired
+    private JWTService jwtService;
+
     public SecurityConfig() {
         // disable default
         super(true);
@@ -42,7 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().hasRole("USER").and()
                 // login API
                 .addFilterBefore(
-                        new StatelessLoginFilter("/api/login", userDetailsService, super.authenticationManagerBean()),
+                        new StatelessLoginFilter("/api/login", userDetailsService, jwtService, super.authenticationManagerBean()),
                         UsernamePasswordAuthenticationFilter.class
                 )
         ;
