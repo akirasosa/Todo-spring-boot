@@ -1,7 +1,8 @@
 package myapps.jwtapp.config;
 
+import myapps.jwtapp.StatelessAuthenticationFilter;
 import myapps.jwtapp.StatelessLoginFilter;
-import myapps.jwtapp.service.JWTService;
+import myapps.jwtapp.service.TokenAuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,7 +25,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private UserDetailsService userDetailsService;
 
     @Autowired
-    private JWTService jwtService;
+    private TokenAuthenticationService tokenAuthenticationService;
 
     public SecurityConfig() {
         // disable default
@@ -46,9 +47,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().hasRole("USER").and()
                 // login API
                 .addFilterBefore(
-                        new StatelessLoginFilter("/api/login", userDetailsService, jwtService, super.authenticationManagerBean()),
+                        new StatelessLoginFilter("/api/login", userDetailsService, tokenAuthenticationService, super.authenticationManagerBean()),
                         UsernamePasswordAuthenticationFilter.class
                 )
+                .addFilterBefore(
+                        new StatelessAuthenticationFilter(tokenAuthenticationService),
+                        UsernamePasswordAuthenticationFilter.class
+                )
+
         ;
     }
 

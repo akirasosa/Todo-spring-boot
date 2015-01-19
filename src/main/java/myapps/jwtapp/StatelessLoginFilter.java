@@ -1,6 +1,6 @@
 package myapps.jwtapp;
 
-import myapps.jwtapp.service.JWTService;
+import myapps.jwtapp.service.TokenAuthenticationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,8 +15,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 public class StatelessLoginFilter extends AbstractAuthenticationProcessingFilter {
 
@@ -25,16 +23,16 @@ public class StatelessLoginFilter extends AbstractAuthenticationProcessingFilter
 
     UserDetailsService userDetailsService;
 
-    JWTService jwtService;
+    TokenAuthenticationService tokenAuthenticationService;
 
     public StatelessLoginFilter(String defaultFilterProcessesUrl,
                                 UserDetailsService userDetailsService,
-                                JWTService jwtService,
+                                TokenAuthenticationService tokenAuthenticationService,
                                 AuthenticationManager authenticationManager) {
 
         super(defaultFilterProcessesUrl);
         this.userDetailsService = userDetailsService;
-        this.jwtService = jwtService;
+        this.tokenAuthenticationService = tokenAuthenticationService;
         setAuthenticationManager(authenticationManager);
     }
 
@@ -56,10 +54,8 @@ public class StatelessLoginFilter extends AbstractAuthenticationProcessingFilter
                                             FilterChain chain,
                                             Authentication authResult) throws IOException, ServletException {
 
-        Map<String, Object> payload = new HashMap<>();
-        payload.put("username", authResult.getName());
-
-        response.setHeader("X-Auth-Token", jwtService.encode(payload));
         response.setStatus(HttpServletResponse.SC_OK);
+        tokenAuthenticationService.addTokenToHeader(response, authResult.getName());
     }
+
 }
