@@ -1,7 +1,7 @@
 package myapps.jwtapp.config;
 
-import myapps.jwtapp.StatelessAuthenticationFilter;
-import myapps.jwtapp.StatelessLoginFilter;
+import myapps.jwtapp.web.StatelessAuthenticationFilter;
+import myapps.jwtapp.web.StatelessLoginFilter;
 import myapps.jwtapp.service.TokenAuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -28,24 +28,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private TokenAuthenticationService tokenAuthenticationService;
 
     public SecurityConfig() {
-        // disable default
         super(true);
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.exceptionHandling().and()
-                .anonymous().and()
-                .servletApi().and()
-                .headers().cacheControl().and()
+        http.exceptionHandling()
+                .and()
+                .anonymous()
+                .and()
+                .servletApi()
+                .and()
+                .headers().cacheControl()
+                .and()
                 .authorizeRequests()
-                // Allow public access
                 .antMatchers("/").permitAll()
-//                .antMatchers(HttpMethod.POST, "/api/login").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/**").permitAll()
-                // Disallow others
-                .anyRequest().hasRole("USER").and()
-                // login API
+                .antMatchers(HttpMethod.POST, "/api/login").permitAll()
+                .antMatchers("/api/todos/**").permitAll()
+                .anyRequest().hasRole("USER")
+                .and()
                 .addFilterBefore(
                         new StatelessLoginFilter("/api/login", userDetailsService, tokenAuthenticationService, super.authenticationManagerBean()),
                         UsernamePasswordAuthenticationFilter.class
@@ -54,7 +55,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         new StatelessAuthenticationFilter(tokenAuthenticationService),
                         UsernamePasswordAuthenticationFilter.class
                 )
-
         ;
     }
 

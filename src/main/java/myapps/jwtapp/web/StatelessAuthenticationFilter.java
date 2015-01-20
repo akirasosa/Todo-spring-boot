@@ -1,5 +1,6 @@
-package myapps.jwtapp;
+package myapps.jwtapp.web;
 
+import myapps.jwtapp.service.UserAuthentication;
 import myapps.jwtapp.service.TokenAuthenticationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,10 +34,11 @@ public class StatelessAuthenticationFilter extends GenericFilterBean {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         try {
             UserDetails userDetails = tokenAuthenticationService.authenticate((HttpServletRequest) request);
-            UserAuthentication authentication = new UserAuthentication(userDetails);
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-
-            tokenAuthenticationService.addTokenToHeader((HttpServletResponse) response, userDetails.getUsername());
+            if(userDetails != null) {
+                UserAuthentication authentication = new UserAuthentication(userDetails);
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+                tokenAuthenticationService.addTokenToHeader((HttpServletResponse) response, userDetails.getUsername());
+            }
         } catch (SignatureException | NoSuchAlgorithmException | InvalidKeyException e) {
             logger.debug(e.getMessage());
         }

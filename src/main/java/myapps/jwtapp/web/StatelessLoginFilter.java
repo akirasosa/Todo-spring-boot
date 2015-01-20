@@ -1,4 +1,4 @@
-package myapps.jwtapp;
+package myapps.jwtapp.web;
 
 import myapps.jwtapp.service.TokenAuthenticationService;
 import org.slf4j.Logger;

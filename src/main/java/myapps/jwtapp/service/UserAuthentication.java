@@ -1,4 +1,4 @@
-package myapps.jwtapp;
+package myapps.jwtapp.service;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;

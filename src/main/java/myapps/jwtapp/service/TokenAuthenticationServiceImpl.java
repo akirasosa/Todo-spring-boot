@@ -2,6 +2,9 @@ package myapps.jwtapp.service;
 
 import com.auth0.jwt.JWTSigner;
 import com.auth0.jwt.JWTVerifier;
+import myapps.jwtapp.domain.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,6 +22,9 @@ import java.util.Map;
 
 @Service
 public class TokenAuthenticationServiceImpl implements TokenAuthenticationService {
+
+    @SuppressWarnings("UnusedDeclaration")
+    private static final Logger logger = LoggerFactory.getLogger(TokenAuthenticationServiceImpl.class);
 
     private static final Integer TEN_DAYS = 10*24*60*60;
 
@@ -48,6 +54,8 @@ public class TokenAuthenticationServiceImpl implements TokenAuthenticationServic
     @Override
     public UserDetails authenticate(HttpServletRequest request) throws SignatureException, NoSuchAlgorithmException, InvalidKeyException, IOException {
         String token = request.getHeader("X-Auth-Token");
+        if(token == null) return null;
+
         Map<String, Object> payload = jwtVerifier.verify(token);
         String username = payload.get("username").toString();
         return userDetailsService.loadUserByUsername(username);
