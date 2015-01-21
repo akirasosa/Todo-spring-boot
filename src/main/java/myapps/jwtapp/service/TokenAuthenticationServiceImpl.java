@@ -2,6 +2,7 @@ package myapps.jwtapp.service;
 
 import com.auth0.jwt.JWTSigner;
 import com.auth0.jwt.JWTVerifier;
+import com.auth0.jwt.internal.org.apache.commons.codec.binary.Base64;
 import myapps.jwtapp.domain.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,7 +38,10 @@ public class TokenAuthenticationServiceImpl implements TokenAuthenticationServic
     @Autowired
     public TokenAuthenticationServiceImpl(@Value("${jwt.secret}") String secret) {
         this.jwtSigner = new JWTSigner(secret);
-        this.jwtVerifier = new JWTVerifier(secret);
+
+        // This behaviour will be fixed later.
+        String encodedSecret = Base64.encodeBase64String(secret.getBytes());
+        this.jwtVerifier = new JWTVerifier(encodedSecret);
     }
 
     @Override

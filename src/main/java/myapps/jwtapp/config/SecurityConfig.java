@@ -42,10 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .headers().cacheControl()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/login").permitAll()
-                .antMatchers("/api/todos/**").permitAll()
-                .anyRequest().hasRole("USER")
+                .antMatchers("/api/secret*").hasRole("USER")
                 .and()
                 .addFilterBefore(
                         new StatelessLoginFilter("/api/login", userDetailsService, tokenAuthenticationService, super.authenticationManagerBean()),
